@@ -14,13 +14,7 @@ Many budget-friendly network switches do not support standard SNMP monitoring. T
 
 | Manufacturer | Model | Status | Contributor |
 |--------------|-------|--------|-------------|
-| Ampcom | WAMJHJ-8125MNG | ✅ Verified | @askainet |
-| Horaco | ZX-SWTGW215AS | ✅ Verified | @askainet |
-| Horaco | ZX-SWTGW218AS | ✅ Verified | @pvelati |
-| Horaco | HC-SWTGW218AS |  ✅ Verified | @arthurbarton |
-| Horaco | HC-SWTGW124AS |  ✅ Verified | @arthurbarton |
-| KeepLink | KP-9000-9XHPML-X | ✅ Verified | @jfallot and @adamchabin |
-| Sodola | SL-SWTG124AS | ✅ Verified | @dennyreiter |
+| Goodtop | GT-ST018M | ✅ Verified | @jauling |
 
 ## 🚀 Installation
 
@@ -52,10 +46,10 @@ go run main.go
 
 ```bash
 # Build Docker image
-docker build -t cheap-switch-exporter .
+docker build -t goodtop-exporter .
 
 # Run container
-docker run -v "./config.yaml:/config.yaml" -p 8080:8080 cheap-switch-exporter
+docker run -v "./config.yaml:/config.yaml" -p 8080:8080 goodtop-exporter
 ```
 
 ## 📝 Configuration
@@ -63,32 +57,27 @@ docker run -v "./config.yaml:/config.yaml" -p 8080:8080 cheap-switch-exporter
 Create a `config.yaml` with the following structure:
 
 ```yaml
-address: "192.168.1.1"           # IP or hostname of the switch
+address: "192.168.2.1"           # IP or hostname of the switch
 username: "admin"                # Web interface username
-password: "password"             # Web interface password
+password: "admin"                # Web interface password
 poll_rate_seconds: 10            # Metrics polling interval
 timeout_seconds: 5               # Request timeout
-poe: 0                           # Enable PoE page scrape
 ```
 
 ## 📊 Exposed Metrics
 
-- `port_state`: Port enabled/disabled status
-- `port_link_status`: Port link up/down status
-- `port_tx_good_pkt`: Transmitted good packets
-- `port_tx_bad_pkt`: Transmitted bad packets
-- `port_rx_good_pkt`: Received good packets
-- `port_rx_bad_pkt`: Received bad packets
-
-### PoE metrics (when enabled in config)
-
-- `poe_port_power_on`: PoE port power on/off 
-- `poe_port_state`: State of the PoE port (1=Enable, 0=Disable)
-- `poe_port_type`: PoE port type class
-- `poe_port_voltage`: PoE port voltage in volts
-- `poe_port_watts`: PoE port power consumption in watts
-- `poe_port_current_ma`: PoE port current in mA
-- `poe_system_consumption_watts`: Total PoE consumption in watts
+- `goodtop_up`: Whether the goodtop switch scrape was successful (1) or failed (0
+- `goodtop_device_info`: Switch information (device_name, firmware_version, ip_address, mac_address, model, netmask)
+- `goodtop_sys_uptime_seconds`: System uptime of the switch appliance in seconds
+- `goodtop_port_duplex`: Port operational duplex mode status (2 = Full, 1 = Half, 0 = Auto/Down)
+- `goodtop_port_flow_control`: Port flow control operational status (1 = On, 0 = Off)
+- `goodtop_port_link_status`: Port link operational status (1 = Link Up, 0 = Link Down)
+- `goodtop_port_rx_good_bytes`: Received good bytes count
+- `goodtop_port_rx_good_pkt`: Received good packets count
+- `goodtop_port_speed_mbps`: Configured or negotiated port interface link speed in Mbps
+- `goodtop_port_state`: Port administrative enabled state (1 = Enable, 0 = Disable)
+- `goodtop_port_tx_good_bytes`: Transmitted good bytes count
+- `goodtop_port_tx_good_pkt`: Transmitted good packets count
 
 ## 🤝 Contributing
 
