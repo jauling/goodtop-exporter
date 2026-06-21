@@ -1,10 +1,10 @@
-# 🔌 Cheap Switch Exporter
+# 🔌 Goodtop Exporter
 
-Prometheus Exporter for low-cost network switches without SNMP support
+Prometheus Exporter for Goodtop GT-ST018M
 
 ## 📖 Overview
 
-This Prometheus exporter retrieves port statistics from switches that lack SNMP functionality, enabling monitoring through a web-based interface.
+This Prometheus exporter retrieves device info, port statis and statistics from Goodtop GT-ST018M switch that lack SNMP functionality, enabling monitoring through a web-based interface.
 
 ## 🎯 Purpose
 
