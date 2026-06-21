@@ -1,4 +1,4 @@
-module cheap-switch-exporter
+module goodtop-exporter
 
 go 1.23.0
 
