@@ -4,7 +4,7 @@ Prometheus Exporter for Goodtop GT-ST018M
 
 ## 📖 Overview
 
-This Prometheus exporter retrieves device info, port statis and statistics from Goodtop GT-ST018M switch that lack SNMP functionality, enabling monitoring through a web-based interface. Also included is a Grafana dashboard that shows port status and packet count. Authentication page of the GT-ST018M is via `/login.cgi`.
+This Prometheus exporter retrieves device info, port statis and statistics from Goodtop GT-ST018M switch that lack SNMP functionality, enabling monitoring through a web-based interface. Also included is a Grafana dashboard that shows port status and packet count. Authentication page of the GT-ST018M is via `/login.cgi`. I fully admit this forked rewrite is largely thanks to Google Gemini.
 
 ## 🎯 Purpose
 
@@ -80,6 +80,20 @@ Metrics are collected via `/port.cgi?page=stats` and `/info.cgi`
 - `goodtop_port_state`: Port administrative enabled state (1 = Enable, 0 = Disable)
 - `goodtop_port_tx_good_bytes`: Transmitted good bytes count
 - `goodtop_port_tx_good_pkt`: Transmitted good packets count
+
+### Metrics Example
+```
+goodtop_device_info{device_name="sw2",firmware_version="V200.1.8",ip_address="192.168.2.1",mac_address="1C:2A:AA:BB:CC:DD",model="GT-ST018M",netmask="255.255.255.0"} 1
+goodtop_port_duplex{port="Port 3"} 2
+goodtop_port_flow_control{port="Port 3"} 0
+goodtop_port_link_status{port="Port 3"} 1
+goodtop_port_rx_good_bytes{port="Port 3"} 304949
+goodtop_port_rx_good_pkt{port="Port 3"} 4728
+goodtop_port_speed_mbps{port="Port 3"} 2500
+goodtop_port_state{port="Port 3"} 1
+goodtop_port_tx_good_bytes{port="Port 3"} 6.02264748879e+11
+goodtop_port_tx_good_pkt{port="Port 3"} 5.13336121e+08
+```
 
 ## 🤝 Contributing
 
