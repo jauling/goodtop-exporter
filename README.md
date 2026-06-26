@@ -4,11 +4,11 @@ Prometheus Exporter for Goodtop GT-ST018M
 
 ## 📖 Overview
 
-This Prometheus exporter retrieves device info, port statis and statistics from Goodtop GT-ST018M switch that lack SNMP functionality, enabling monitoring through a web-based interface.
+This Prometheus exporter retrieves device info, port statis and statistics from Goodtop GT-ST018M switch that lack SNMP functionality, enabling monitoring through a web-based interface. Also included is a Grafana dashboard that shows port status and packet count. Authentication page of the GT-ST018M is via `/login.cgi`.
 
 ## 🎯 Purpose
 
-Many budget-friendly network switches do not support standard SNMP monitoring. This exporter provides a workaround by scraping port statistics directly from the switch's web interface.
+Many budget-friendly network switches do not support standard SNMP monitoring. This exporter provides a workaround by scraping port statistics directly from the switch's web interface. This exporter might work with other switches that use the RTL8373N or variants of this network chip. 
 
 ## 🖥️ Supported Devices
 
@@ -65,6 +65,8 @@ timeout_seconds: 5               # Request timeout
 ```
 
 ## 📊 Exposed Metrics
+
+Metrics are collected via `/port.cgi?page=stats` and `/info.cgi`
 
 - `goodtop_up`: Whether the goodtop switch scrape was successful (1) or failed (0
 - `goodtop_device_info`: Switch information (device_name, firmware_version, ip_address, mac_address, model, netmask)
