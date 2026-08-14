@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  goodtop-exporter:
+    # Build locally from the repo root if built via docker compose build,
+    # or pull the pre-built GHCR image if used as a stack reference.
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/jauling/goodtop-exporter:latest
+    container_name: goodtop-exporter
+    restart: unless-stopped
+    
+    # Expose the metrics endpoint (Host Port : Container Port)
+    ports:
+      - "8080:8080"
+
+    # Mount the switch configuration file into the container
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+
+    # Container Hardening & Security Options
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    drop_capabilities:
+      - ALL
+
+    # Basic Healthcheck to verify the exporter HTTP server is responding
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/metrics || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
